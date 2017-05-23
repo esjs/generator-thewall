@@ -21,8 +21,7 @@ module.exports = class extends Generator {
 
     this.options.ies = this.options.xtype.charAt(this.options.xtype.length - 1) === 'y';
 
-    this.log('xtype => ', this.options.xtype, typeof this.options.xtype);
-    this.log('edp => ', this.options.edp);
+    this.log('Selected xtype: ', this.options.xtype);
   }
 
   prompting() {
@@ -41,6 +40,11 @@ module.exports = class extends Generator {
         name: 'XtypeCapitalized',
         message: 'Enter uppercased version of module.',
         default: xtype.charAt(0).toUpperCase() + xtype.substr(1)
+      }, {
+        type: 'input',
+        name: 'xtypeApi',
+        message: 'Enter api key for module, required for routing.',
+        default: xtype
       }, {
         type: 'input',
         name: 'XtypeCapitalizedPlural',
@@ -78,6 +82,10 @@ module.exports = class extends Generator {
       this._generateImportViews(answers);
       this._generateCdpViews(answers);
     }
+
+    this._updateApplication(answers);
+
+    this._updateNavigation(answers);
   }
 
   _generateModels(answers) {
@@ -278,5 +286,176 @@ module.exports = class extends Generator {
       this.destinationPath(`${basePath}/${answers.xtypePlural}/detail/Import${answers.XtypeCapitalized}.js`),
       answers
     );
+  }
+
+  _updateApplication(answers) {
+    var appPath = this.destinationPath('classic/src/Application.js'),
+        appContent = this.fs.read(appPath),
+        modulePlacehoder = '/* %%module_placeholder%% */',
+        cdpModulePlacehoder = '/* %%cdp_module_placeholder%% */',
+        importModulePlacehoder = '/* %%import_module_placeholder%% */';
+
+    if (!appContent.includes(modulePlacehoder)) {
+      this.log('Cannot find placehoder for module in Application.js');
+      return;
+    }
+
+    appContent = appContent.replace(modulePlacehoder, [
+      `'${answers.xtypePlural}.${answers.XtypeCapitalizedPlural}',`,
+      `'${answers.xtypePlural}.detail.${answers.XtypeCapitalized}Detail',`,
+      '',
+      modulePlacehoder
+    ].join('\n    '));
+
+
+    if (!this.options.edp) {
+      if (!appContent.includes(cdpModulePlacehoder)) {
+        this.log('Cannot find placehoder for CDP module in Application.js');
+        return;
+      }
+
+      appContent = appContent.replace(cdpModulePlacehoder, [
+        `'${answers.xtypePlural}.cdp.Cdp${answers.XtypeCapitalizedPlural}',`,
+        `'${answers.xtypePlural}.detail.Cdp${answers.XtypeCapitalized}Detail',`,
+        '',
+        cdpModulePlacehoder
+      ].join('\n    '));
+
+
+      if (!appContent.includes(importModulePlacehoder)) {
+        this.log('Cannot find placehoder for Import module in Application.js');
+        return;
+      }
+
+      appContent = appContent.replace(importModulePlacehoder, [
+        `'${answers.xtypePlural}._import.Import${answers.XtypeCapitalizedPlural}',`,
+        `'${answers.xtypePlural}.detail.Import${answers.XtypeCapitalized}',`,
+        '',
+        importModulePlacehoder
+      ].join('\n    '));
+    }
+    
+    this.fs.write(appPath, appContent);
+  }
+
+  _updateNavigation(answers) {
+    var navPath = this.destinationPath('app/store/Navigation.js'),
+        navContent = this.fs.read(navPath),
+        moduleApiPlaceholder = '/* %%module_api%% */',
+        modulePlacehoder = '/* %%module_placeholder%% */',
+        cdpModulePlacehoder = '/* %%cdp_module_placeholder%% */',
+        importContent = '',
+        importApiContent = '';
+
+    if (!navContent.includes(modulePlacehoder)) {
+      this.log('Cannot find placehoder for module in Navigation.js');
+      return;
+    }
+
+    if (!this.options.edp) {
+      // Formatting is important to preserve indentation
+      importContent = `, {
+            text: Ext.String.format(i18n.importEntities, i18n.${answers.xtypePlural}),
+            view: '${answers.xtypePlural}._import.Import${answers.XtypeCapitalizedPlural}',
+            leaf: true,
+            iconCls: 'x-fa fa-sign-in',
+            routeId: 'import${answers.xtypePlural}',
+            browseRequirements: [
+              'import${answers.xtypePlural}.read'
+            ]
+          }, {
+            // text: Ext.String.format(i18n.importEntities, i18n.${answers.xtype}),
+            view: '${answers.xtypePlural}.detail.Import${answers.XtypeCapitalized}',
+            leaf: true,
+            iconCls: 'x-fa fa-sign-in',
+            routeId: 'import${answers.xtype}',
+            browseRequirements: [
+              'cdp${answers.xtypePlural}.detail'
+            ]
+          }`;
+    }
+
+    // Formatting is important to preserve indentation
+    navContent = navContent.replace(modulePlacehoder, `, {
+        text: i18n.${answers.xtypePlural},
+        view: '${answers.xtypePlural}.${answers.XtypeCapitalizedPlural}',
+        iconCls: 'x-fa fa-star-o',
+        routeId: '${answers.xtypePlural}',
+        browseRequirements: [
+          '${answers.xtypePlural}.read'
+        ],
+        children: [
+          {
+            // text: Ext.String.format(i18n.createEntity, i18n.${answers.xtype}),
+            view: '${answers.xtypePlural}.detail.${answers.XtypeCapitalized}Detail',
+            leaf: true,
+            iconCls: 'x-fa fa-plus',
+            routeId: '${answers.xtype}',
+            browseRequirements: [
+              '${answers.xtypePlural}.detail'
+            ]
+          }${importContent}
+        ]
+      }${modulePlacehoder}`);
+
+    if (!navContent.includes(moduleApiPlaceholder)) {
+      this.log('Cannot find placehoder for API in Navigation.js');
+    } else {
+      if (!this.options.edp) {
+        // Formatting is important to preserve indentation
+        importApiContent = `
+  cdp${answers.xtypePlural}: {
+    create   : '/api/${answers.xtypeApi}/cdp-save/',
+    read     : '/api/${answers.xtypeApi}/cdp-browse/',
+    update   : '/api/${answers.xtypeApi}/cdp-save/',
+    destroy  : '/api/${answers.xtypeApi}/cdp-delete/',
+    detail   : '/api/${answers.xtypeApi}/cdp-detail/'
+  },
+  import${answers.xtypePlural}: {
+    create   : '/api/${answers.xtypeApi}/import/',
+    read     : '/api/${answers.xtypeApi}/import-browse/'
+  },`;
+      }
+
+      // Formatting is important to preserve indentation
+      navContent = navContent.replace(moduleApiPlaceholder, `
+  ${answers.xtypePlural}: {
+    create   : '/api/${answers.xtypeApi}/edp-save/',
+    read     : '/api/${answers.xtypeApi}/edp-browse/',
+    update   : '/api/${answers.xtypeApi}/edp-save/',
+    destroy  : '/api/${answers.xtypeApi}/edp-delete/',
+    detail   : '/api/${answers.xtypeApi}/edp-detail/'
+  },${importApiContent}
+  ${moduleApiPlaceholder}`);
+    }
+
+    if (!navContent.includes(cdpModulePlacehoder)) {
+      this.log('Cannot find placehoder for CDP module in Navigation.js');
+    } else if (!this.options.edp) {
+      // Formatting is important to preserve indentation
+      navContent = navContent.replace(cdpModulePlacehoder, `, {
+        text: i18n.${answers.xtypePlural},
+        view: '${answers.xtypePlural}.cdp.Cdp${answers.XtypeCapitalizedPlural}',
+        iconCls: 'x-fa fa-star-o',
+        routeId: 'cdp${answers.xtypePlural}',
+        browseRequirements: [
+          'cdp${answers.xtypePlural}.read'
+        ],
+        children: [
+          {
+            text: Ext.String.format(i18n.createEntity, i18n.${answers.xtype}),
+            view: '${answers.xtypePlural}.detail.Cdp${answers.XtypeCapitalized}Detail',
+            leaf: true,
+            iconCls: 'x-fa fa-plus',
+            routeId: 'cdp${answers.xtype}',
+            browseRequirements: [
+              'cdp${answers.xtypePlural}.detail'
+            ]
+          }
+        ]
+      }${cdpModulePlacehoder}`);
+    }
+
+    this.fs.write(navPath, navContent);
   }
 };
