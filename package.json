@@ -9,6 +9,11 @@
   "files": [
     "generators"
   ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/esjs/generator-thewall.git"
+  },
+  "homepage": "https://github.com/esjs/generator-thewall",
   "keywords": [
     "yeoman-generator"
   ],
