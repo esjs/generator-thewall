@@ -56,7 +56,8 @@ Ext.define('Thewall.view.<%= xtypePlural %>.<%= XtypeCapitalizedPlural %>Grid', 
       Ext.apply(cols.<%= idPropertyEdp %>, {
         renderer: Ext.util.Format.colLinkRenderer('cdp<%= xtypePlural %>', '<%= idProperty %>')
       }),
-      cols.title
+      cols.title,
+      cols.alias
     ];
   }
 });
