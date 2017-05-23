@@ -1,0 +1,62 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.<%= XtypeCapitalizedPlural %>Grid', {
+  extend: 'Thewall.view.<%= xtypePlural %>.<%= XtypeCapitalizedPlural %>GridBase',
+
+  xtype: '<%= xtypePlural %>grid',
+
+  requires: [
+    'Thewall.view.<%= xtypePlural %>.ViewCtrl<%= XtypeCapitalizedPlural %>Grid',
+    'Thewall.view.<%= xtypePlural %>.ViewModel<%= XtypeCapitalizedPlural %>Grid'
+  ],
+  controller: '<%= xtypePlural %>grid',
+  viewModel: {
+    type: '<%= xtypePlural %>grid'
+  },
+
+  bind: {
+    store: '{<%= xtypePlural %>Store}',
+    selection: '{selection}'
+  },
+
+  listeners: {
+    add: 'onAdd'
+  },
+  features: [{
+    ftype: 'filterrow'
+  }],
+
+  selModel: {
+    mode: 'MULTI'
+  },
+
+  initComponent: function() {
+    var me = this;
+
+    me.accessLevels = appRoutes.<%= xtypePlural %>;
+
+    me.callParent(arguments);
+  },
+
+  layoutToolbar: function(tbar) {
+    var me = this;
+
+    me.tbar = [
+      tbar.filter,
+      tbar.clearfilter,
+      '-',
+      tbar.edit,
+      '-',
+      tbar.remove
+    ];
+  },
+  layoutColumns: function(cols) {
+    var me = this;
+
+    me.columns = [
+      cols.<%= idProperty %>,
+      Ext.apply(cols.<%= idPropertyEdp %>, {
+        renderer: Ext.util.Format.colLinkRenderer('cdp<%= xtypePlural %>', '<%= idProperty %>')
+      }),
+      cols.title
+    ];
+  }
+});

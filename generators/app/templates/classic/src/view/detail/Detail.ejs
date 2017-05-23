@@ -1,0 +1,30 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.detail.<%= XtypeCapitalized %>Detail', {
+  extend: 'Thewall.view.common.detail.Detail',
+
+  requires: [
+    'Thewall.model.<%= xtypePlural %>.Model<%= XtypeCapitalizedPlural %>',
+    'Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>DetailForm'
+  ],
+
+  mainModel: 'Thewall.model.<%= xtypePlural %>.Model<%= XtypeCapitalizedPlural %>',
+
+  xtype: '<%= xtype %>',
+
+  centerConfig: {
+    xtype: 'addedit<%= xtype %>detailform'
+  },
+
+  titleProperty: 'title',
+
+  initComponent: function() {
+    var me = this;
+
+    me.accessLevels = {
+      read: appRoutes.<%= xtypePlural %>.detail,
+      create: appRoutes.<%= xtypePlural %>.create,
+      update: appRoutes.<%= xtypePlural %>.update
+    };
+
+    me.callParent(arguments);
+  }
+});

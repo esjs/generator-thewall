@@ -1,0 +1,33 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.<%= XtypeCapitalizedPlural %>GridBase', {
+  extend: 'Thewall.view.common.grid.GridBase',
+
+  mixins: ['Thewall.view.<%= xtypePlural %>.GridColumnsCfg'],
+
+  requires: [
+    'Thewall.view.<%= xtypePlural %>.ViewCtrl<%= XtypeCapitalizedPlural %>GridBase'
+  ],
+  controller: '<%= xtypePlural %>gridbase',
+
+  layoutColumns: function(cols) {
+    var me = this;
+
+    me.columns = [
+      cols.<%= idPropertyEdp %>,
+      cols.title
+    ];
+  },
+  setupToolbar: function(tbar) {
+    var me = this,
+        access = me.accessLevels;
+
+    me.callParent(arguments);
+
+    Ext.apply(tbar, {
+      editions: {
+        text: i18n.toggleEditions,
+        iconCls: 'x-fa fa-eye-slash',
+        handler: 'onToggleEditionsBtnClick'
+      }
+    });
+  }
+});

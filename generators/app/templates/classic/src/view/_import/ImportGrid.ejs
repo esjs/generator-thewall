@@ -1,0 +1,63 @@
+Ext.define('Thewall.view.<%= xtypePlural %>._import.Import<%= XtypeCapitalizedPlural %>Grid', {
+  extend: 'Thewall.view.<%= xtypePlural %>.<%= XtypeCapitalizedPlural %>GridBase',
+
+  xtype: 'import<%= xtypePlural %>grid',
+
+  requires: [
+    'Thewall.view.<%= xtypePlural %>._import.ViewCtrlImport<%= XtypeCapitalizedPlural %>Grid',
+    'Thewall.view.<%= xtypePlural %>._import.ViewModelImport<%= XtypeCapitalizedPlural %>Grid'
+  ],
+  controller: 'import<%= xtypePlural %>grid',
+  viewModel: {
+    type: 'import<%= xtypePlural %>grid'
+  },
+  bind: {
+    store: '{import<%= xtypePlural %>Store}',
+    selection: '{selection}'
+  },
+
+  listeners: {
+    add: 'onAdd'
+  },
+  
+  // enableLocking: true,
+  // plugins: [
+  //     'gridrowexpander'
+  // ],
+  
+  features: [{
+    ftype: 'filterrow'
+  }],
+
+  selModel: {
+    mode: 'MULTI'
+  },
+
+  initComponent: function() {
+    var me = this;
+
+    me.accessLevels = appRoutes.import<%= xtypePlural %>;
+
+    me.callParent(arguments);
+  },
+
+  layoutColumns: function(cols) {
+    var me = this;
+
+    me.columns = [
+      cols.<%= idProperty %>,
+      cols.editions,
+      cols.title
+    ];
+  },
+  layoutToolbar: function(tbar) {
+    var me = this;
+
+    me.tbar = [
+      tbar.filter,
+      tbar.clearfilter,
+      '-',
+      tbar['import']
+    ];
+  }
+});

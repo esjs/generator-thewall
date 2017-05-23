@@ -1,0 +1,31 @@
+Ext.define('Thewall.view.<%= xtypePlural %>._import.Import<%= XtypeCapitalizedPlural %>', {
+  extend: 'Thewall.view.common.multiedit._import.MultiImport',
+
+  requires: [
+    'Thewall.view.<%= xtypePlural %>._import.Import<%= XtypeCapitalizedPlural %>Grid',
+    'Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>BaseForm',
+
+    'Thewall.view.<%= xtypePlural %>._import.ViewModelImport<%= XtypeCapitalizedPlural %>'
+  ],
+
+  viewModel: {
+    type: 'import<%= xtypePlural %>'
+  },
+
+  initComponent: function() {
+    var me = this;
+
+    me.accessLevels = appRoutes.import<%= xtypePlural %>;
+
+    me.callParent(arguments);
+  },
+
+  setupItems: function() {
+    var me = this;
+    
+    me.callParent(arguments);
+
+    me.grid.xtype = 'import<%= xtypePlural %>grid';
+    me.form.xtype = 'addedit<%= xtype %>baseform';
+  }
+});

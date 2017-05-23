@@ -1,0 +1,19 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.ViewModel<%= XtypeCapitalizedPlural %>Grid', {
+  extend: 'Thewall.view.common.grid.ViewModelGridBase',
+
+  alias: 'viewmodel.<%= xtypePlural %>grid',
+
+  requires: ['Thewall.model.<%= xtypePlural %>.Model<%= XtypeCapitalizedPlural %>'],
+
+  stores: {
+    <%= xtypePlural %>Store: {
+      type: 'uxstore',
+      model: 'Thewall.model.<%= xtypePlural %>.Model<%= XtypeCapitalizedPlural %>',
+      proxy: '<%= xtypePlural %>',
+      sorters: [{
+        direction: 'DESC',
+        property: '<%= idPropertyEdp %>'    
+      }]
+    }
+  }
+});

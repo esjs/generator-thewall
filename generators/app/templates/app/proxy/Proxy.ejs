@@ -1,0 +1,14 @@
+Ext.define('Thewall.proxy.<%= xtypePlural %>.Proxy<%= XtypeCapitalizedPlural %>', {
+  extend: 'Thewall.ux.data.proxy.Extended',
+
+  alias: 'proxy.<%= xtypePlural %>',
+
+  reader: {
+    type: 'uxjson',
+    rootProperty: 'result'
+  },
+  writer: {
+    type: 'uxjson',
+    rootProperty: 'result'
+  }
+});

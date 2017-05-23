@@ -1,0 +1,30 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.detail.Import<%= XtypeCapitalized %>', {
+  extend: 'Thewall.view.common.detail._import.Import',
+
+  requires: [
+    'Thewall.model.<%= xtypePlural %>._import.ModelImport<%= XtypeCapitalizedPlural %>',
+    'Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>DetailForm'
+  ],
+
+  mainModel: 'Thewall.model.<%= xtypePlural %>._import.ModelImport<%= XtypeCapitalizedPlural %>',
+
+  xtype: 'import<%= xtype %>',
+  
+  centerConfig: {
+    xtype: 'addedit<%= xtype %>detailform'
+  },
+
+  titleProperty: 'title',
+
+  initComponent: function() {
+    var me = this;
+
+    me.accessLevels = {
+      read: appRoutes.cdp<%= xtypePlural %>.detail,
+      'import': appRoutes.import<%= xtypePlural %>['import'],
+      update: appRoutes.import<%= xtypePlural %>['import']
+    };
+
+    me.callParent(arguments);
+  }
+});

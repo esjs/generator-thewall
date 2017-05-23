@@ -1,0 +1,29 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.GridColumnsCfg', {
+  _gridColumnsCfg: {
+    <%= idProperty %>: {
+      xtype: 'idcolumn',
+      text: i18n.cdpId,
+      dataIndex: '<%= idProperty %>'
+    },
+    <%= idPropertyEdp %>: {
+      xtype: 'idcolumn',
+      text: i18n.id,
+      dataIndex: '<%= idPropertyEdp %>'
+    },
+    editions: {
+      reference: 'editionsColumn',
+      xtype: 'editionscolumn',
+      dataIndex: 'editions'
+    },
+    alias: {
+      text: i18n.alias,
+      dataIndex: 'alias',
+      width: 300
+    },
+    title: {
+      text: i18n.title,
+      dataIndex: 'title',
+      width: 300
+    }
+  }
+});

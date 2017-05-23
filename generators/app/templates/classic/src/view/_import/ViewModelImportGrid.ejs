@@ -1,0 +1,29 @@
+Ext.define('Thewall.view.<%= xtypePlural %>._import.ViewModelImport<%= XtypeCapitalizedPlural %>Grid', {
+  extend: 'Thewall.view.common.grid._import.ViewModelGridBaseImport',
+
+  alias: 'viewmodel.import<%= xtypePlural %>grid',
+
+  requires: [
+    'Thewall.model.<%= xtypePlural %>._import.ModelImport<%= XtypeCapitalizedPlural %>'
+  ],
+
+  stores: {
+    import<%= xtypePlural %>Store: {
+      type: 'uxstore',
+      model: 'Thewall.model.<%= xtypePlural %>._import.ModelImport<%= XtypeCapitalizedPlural %>',
+      proxy: {
+        type: '<%= xtypePlural %>',
+        isImport: true,
+        writer: {
+          type: 'uxjson',
+          rootProperty: 'result',
+          writeAllFields: true
+        }
+      },
+      sorters: [{
+        direction: 'DESC',
+        property: '<%= idProperty %>'
+      }]
+    }
+  }
+});

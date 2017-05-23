@@ -1,0 +1,20 @@
+Ext.define('Thewall.model.<%= xtypePlural %>.Model<%= XtypeCapitalizedPlural %>', {
+  extend: 'Thewall.model.common.grid.ModelGridBase',
+  idProperty: '<%= idPropertyEdp %>',
+
+  requires: [
+    'Thewall.proxy.<%= xtypePlural %>.Proxy<%= XtypeCapitalizedPlural %>'
+  ],
+  proxy: {
+    type: '<%= xtypePlural %>'
+  },
+  fields: [
+    {name: '<%= idPropertyEdp %>'},
+    <% if (!edpOnly) { %>{name: '<%= idProperty %>'},<% } %>
+    {name: 'alias'},
+    {name: 'title'}
+  ],
+  validators: {
+    first_name: 'presence'
+  }
+});

@@ -1,0 +1,9 @@
+Ext.define('Thewall.model.<%= xtypePlural %>._import.ModelImport<%= XtypeCapitalizedPlural %>', {
+  extend: 'Thewall.model.<%= xtypePlural %>.Model<%= XtypeCapitalizedPlural %>',
+  idProperty: '<%= idProperty %>',
+
+  fields: [
+    {name: 'editions', persist: false},
+    {name: '<%= idPropertyEdp %>', persist: false}
+  ]
+});

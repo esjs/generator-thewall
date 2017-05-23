@@ -1,0 +1,12 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.ViewCtrl<%= XtypeCapitalizedPlural %>GridBase', {
+  extend: 'Thewall.view.common.grid.ViewCtrlGridBase',
+
+  alias: 'controller.<%= xtypePlural %>gridbase',
+
+  onToggleEditionsBtnClick: function() {
+    var me = this,
+        editionsColumn = me.lookupReference('editionsColumn');
+
+    editionsColumn.setHidden(editionsColumn.isVisible());
+  }
+});

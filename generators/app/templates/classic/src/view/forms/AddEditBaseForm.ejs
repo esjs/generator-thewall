@@ -1,0 +1,25 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>BaseForm', {
+  extend: 'Thewall.view.common.form.Base',
+
+  xtype: 'addedit<%= xtype %>baseform',
+
+  _formFieldsCfg: {
+    <%= idProperty %>: {
+      xtype: 'numberfield',
+      fieldLabel: Ext.String.format(i18n.entityId, i18n.<%= xtype %>),
+      name: '<%= idProperty %>'
+    },
+    title: {
+      xtype: 'textfield',
+      fieldLabel: i18n.title,
+      name: 'title'
+    }
+  },
+  layoutFields: function(cfg) {
+    var me = this;
+
+    me.items = [
+      cfg.title
+    ];
+  }
+});

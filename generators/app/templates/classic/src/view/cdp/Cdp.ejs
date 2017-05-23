@@ -1,0 +1,31 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.cdp.Cdp<%= XtypeCapitalizedPlural %>', {
+  extend: 'Thewall.view.common.multiedit.MultiEdit',
+
+  requires: [
+    'Thewall.view.<%= xtypePlural %>.cdp.Cdp<%= XtypeCapitalizedPlural %>Grid',
+    'Thewall.view.<%= xtypePlural %>.forms.AddEditCdp<%= XtypeCapitalized %>BaseForm',
+
+    'Thewall.view.<%= xtypePlural %>.cdp.ViewModelCdp<%= XtypeCapitalizedPlural %>'
+  ],
+
+  viewModel: {
+    type: 'cdp<%= xtypePlural %>'
+  },
+
+  initComponent: function() {
+    var me = this;
+
+    me.accessLevels = appRoutes.cdp<%= xtypePlural %>;
+
+    me.callParent(arguments);
+  },
+
+  setupItems: function() {
+    var me = this;
+    
+    me.callParent(arguments);
+
+    me.grid.xtype = 'cdp<%= xtypePlural %>grid';
+    me.form.xtype = 'addeditcdp<%= xtype %>baseform';
+  }
+});

@@ -1,0 +1,21 @@
+Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEditCdp<%= XtypeCapitalized %>DetailForm', {
+  extend: 'Thewall.view.<%= xtypePlural %>.forms.AddEditCdp<%= XtypeCapitalized %>BaseForm',
+
+  xtype: 'addeditcdp<%= xtype %>detailform',
+
+  recordBindName: 'record',
+
+  layoutFields: function(cfg) {
+    var me = this;
+
+    me.items = [
+      {
+        header: false,
+        layout: 'form',
+        items: [
+          cfg.title
+        ]
+      }
+    ];
+  }
+});

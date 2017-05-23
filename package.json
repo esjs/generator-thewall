@@ -1,0 +1,20 @@
+{
+  "name": "generator-thewall",
+  "version": "0.1.0",
+  "description": "Generates basic structure of Thewall module",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "files": [
+    "generators"
+  ],
+  "keywords": [
+    "yeoman-generator"
+  ],
+  "dependencies": {
+    "yeoman-generator": "^1.0.0"
+  },
+  "author": "Vladimir Panov",
+  "license": "ISC"
+}
