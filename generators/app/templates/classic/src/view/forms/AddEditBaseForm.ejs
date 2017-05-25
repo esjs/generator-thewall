@@ -13,13 +13,26 @@ Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>
       xtype: 'textfield',
       fieldLabel: i18n.title,
       name: 'title'
+    },
+    is_hidden: {
+      xtype: 'checkbox1and0',
+      name: 'is_hidden',
+      boxLabel: i18n.hidden
     }
   },
   layoutFields: function(cfg) {
     var me = this;
 
     me.items = [
-      cfg.title
+      cfg.title,
+      {
+        xtype: 'checkboxgroup',
+        fieldLabel: i18n.otherSettings,
+        columns: 1,
+        items: [
+          cfg.is_hidden
+        ]
+      }
     ];
   }
 });

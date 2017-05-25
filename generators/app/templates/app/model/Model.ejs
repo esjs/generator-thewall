@@ -12,7 +12,8 @@ Ext.define('Thewall.model.<%= xtypePlural %>.Model<%= XtypeCapitalizedPlural %>'
     {name: '<%= idPropertyEdp %>'},
     <% if (!edpOnly) { %>{name: '<%= idProperty %>'},<% } %>
     {name: 'alias'},
-    {name: 'title'}
+    {name: 'title'},
+    {name: 'is_hidden', defaultValue: '0'}
   ],
   validators: {
     first_name: 'presence'

@@ -412,7 +412,7 @@ module.exports = class extends Generator {
     detail   : '/api/${answers.xtypeApi}/cdp-detail/'
   },
   import${answers.xtypePlural}: {
-    create   : '/api/${answers.xtypeApi}/import/',
+    'import' : '/api/${answers.xtypeApi}/import/',
     read     : '/api/${answers.xtypeApi}/import-browse/'
   },`;
       }

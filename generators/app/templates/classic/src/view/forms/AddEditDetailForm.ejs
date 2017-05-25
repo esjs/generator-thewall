@@ -13,7 +13,15 @@ Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>
         header: false,
         layout: 'form',
         items: [
-          cfg.title
+          cfg.title,
+          {
+            xtype: 'checkboxgroup',
+            fieldLabel: i18n.otherSettings,
+            columns: 2,
+            items: [
+              cfg.is_hidden
+            ]
+          }
         ]
       }
     ];
