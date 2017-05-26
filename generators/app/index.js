@@ -86,6 +86,7 @@ module.exports = class extends Generator {
     this._updateApplication(answers);
 
     this._updateNavigation(answers);
+    this._updateLangs(answers);
   }
 
   _generateModels(answers) {
@@ -153,7 +154,7 @@ module.exports = class extends Generator {
     );
 
     this.fs.copyTpl(
-      this.templatePath(`${basePath}/ViewCtrlGrid.ejs`),
+      this.templatePath(`${basePath}/ViewCtrlGridBase.ejs`),
       this.destinationPath(`${basePath}/${answers.xtypePlural}/ViewCtrl${answers.XtypeCapitalizedPlural}GridBase.js`),
       answers
     );
@@ -457,5 +458,34 @@ module.exports = class extends Generator {
     }
 
     this.fs.write(navPath, navContent);
+  }
+
+  _updateLangs(answers) {
+    var langsPath = this.destinationPath('app/config/translations/Langs.js'),
+        langsContent = this.fs.read(langsPath),
+        langsPlacehoder = '/* %%module_placeholder%% */',
+        langsPlacehoderPlural = '/* %%module_placeholder_plural%% */';
+
+    if (!langsContent.includes(langsPlacehoder)) {
+      this.log('Cannot find placehoder for module in Langs.js');
+    }
+
+    // Formatting is important to preserve indentation
+    langsContent = langsContent.replace(langsPlacehoder, [
+      `${answers.xtype}: '${answers.XtypeCapitalized}',`,
+      langsPlacehoder
+    ].join('\n    '));
+
+    if (!langsContent.includes(langsPlacehoderPlural)) {
+      this.log('Cannot find placehoder for module plural in Langs.js');
+    }
+
+    // Formatting is important to preserve indentation
+    langsContent = langsContent.replace(langsPlacehoderPlural, [
+      `${answers.xtypePlural}: '${answers.XtypeCapitalizedPlural}',`,
+      langsPlacehoderPlural
+    ].join('\n    '));
+
+    this.fs.write(langsPath, langsContent);
   }
 };
