@@ -11,7 +11,11 @@ Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEditCdp<%= XtypeCapitalized
     me.items = [
       {
         header: false,
-        layout: 'form',
+        layout: 'anchor',
+        bodyPadding: '10 10 0 10',
+        defaults: {
+          anchor: '100%'
+        },
         items: [
           cfg.title
         ]

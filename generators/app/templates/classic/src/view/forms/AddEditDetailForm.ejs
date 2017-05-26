@@ -11,9 +11,14 @@ Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>
     me.items = [
       {
         header: false,
-        layout: 'form',
+        layout: 'anchor',
+        bodyPadding: '10 10 0 10',
+        defaults: {
+          anchor: '100%'
+        },
         items: [
           cfg.title,
+          cfg.alias,
           {
             xtype: 'checkboxgroup',
             fieldLabel: i18n.otherSettings,

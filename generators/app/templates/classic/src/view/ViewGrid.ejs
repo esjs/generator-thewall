@@ -12,6 +12,12 @@ Ext.define('Thewall.view.<%= xtypePlural %>.<%= XtypeCapitalizedPlural %>Grid', 
     type: '<%= xtypePlural %>grid'
   },
 
+  viewConfig: {
+    getRowClass: function(record, rowIndex, rowParams, store) {
+      return record.get('is_hidden') === '1' ? Ext.baseCSSPrefix + 'row-disabled' : '';
+    }
+  },
+
   bind: {
     store: '{<%= xtypePlural %>Store}',
     selection: '{selection}'
@@ -57,7 +63,8 @@ Ext.define('Thewall.view.<%= xtypePlural %>.<%= XtypeCapitalizedPlural %>Grid', 
         renderer: Ext.util.Format.colLinkRenderer('cdp<%= xtypePlural %>', '<%= idProperty %>')
       }),
       cols.title,
-      cols.alias
+      cols.alias,
+      cols.is_hidden
     ];
   }
 });

@@ -3,6 +3,8 @@ Ext.define('Thewall.model.<%= xtypePlural %>.cdp.ModelCdp<%= XtypeCapitalizedPlu
   idProperty: '<%= idProperty %>',
 
   fields: [
-    {name: '<%= idPropertyEdp %>', persist: false}
+    {name: '<%= idPropertyEdp %>', persist: false},
+    {name: 'alias', persist: false},
+    {name: 'is_hidden', persist: false}
   ]
 });

@@ -1,5 +1,5 @@
 Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>BaseForm', {
-  extend: 'Thewall.view.common.form.Base',
+  extend: 'Thewall.userux.form.Base',
 
   xtype: 'addedit<%= xtype %>baseform',
 
@@ -14,6 +14,11 @@ Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>
       fieldLabel: i18n.title,
       name: 'title'
     },
+    alias: {
+      xtype: 'textfield',
+      fieldLabel: i18n.alias,
+      name: 'alias'
+    },
     is_hidden: {
       xtype: 'checkbox1and0',
       name: 'is_hidden',
@@ -25,6 +30,7 @@ Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>
 
     me.items = [
       cfg.title,
+      cfg.alias,
       {
         xtype: 'checkboxgroup',
         fieldLabel: i18n.otherSettings,
