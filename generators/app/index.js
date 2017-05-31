@@ -356,48 +356,48 @@ module.exports = class extends Generator {
     if (!this.options.edp) {
       // Formatting is important to preserve indentation
       importContent = `, {
-            text: Ext.String.format(i18n.importEntities, i18n.${answers.xtypePlural}),
-            view: '${answers.xtypePlural}._import.Import${answers.XtypeCapitalizedPlural}',
-            leaf: true,
-            iconCls: 'x-fa fa-sign-in',
-            routeId: 'import${answers.xtypePlural}',
-            browseRequirements: [
-              'import${answers.xtypePlural}.read'
-            ]
-          }, {
-            // text: Ext.String.format(i18n.importEntities, i18n.${answers.xtype}),
-            view: '${answers.xtypePlural}.detail.Import${answers.XtypeCapitalized}',
-            leaf: true,
-            iconCls: 'x-fa fa-sign-in',
-            routeId: 'import${answers.xtype}',
-            browseRequirements: [
-              'cdp${answers.xtypePlural}.detail'
-            ]
-          }`;
+              text: Ext.String.format(i18n.importEntities, i18n.${answers.xtypePlural}),
+              view: '${answers.xtypePlural}._import.Import${answers.XtypeCapitalizedPlural}',
+              leaf: true,
+              iconCls: 'x-fa fa-sign-in',
+              routeId: 'import${answers.xtypePlural}',
+              browseRequirements: [
+                'import${answers.xtypePlural}.read'
+              ]
+            }, {
+              // text: Ext.String.format(i18n.importEntities, i18n.${answers.xtype}),
+              view: '${answers.xtypePlural}.detail.Import${answers.XtypeCapitalized}',
+              leaf: true,
+              iconCls: 'x-fa fa-sign-in',
+              routeId: 'import${answers.xtype}',
+              browseRequirements: [
+                'cdp${answers.xtypePlural}.detail'
+              ]
+            }`;
     }
 
     // Formatting is important to preserve indentation
     navContent = navContent.replace(modulePlacehoder, `, {
-        text: i18n.${answers.xtypePlural},
-        view: '${answers.xtypePlural}.${answers.XtypeCapitalizedPlural}',
-        iconCls: 'x-fa fa-star-o',
-        routeId: '${answers.xtypePlural}',
-        browseRequirements: [
-          '${answers.xtypePlural}.read'
-        ],
-        children: [
-          {
-            // text: Ext.String.format(i18n.createEntity, i18n.${answers.xtype}),
-            view: '${answers.xtypePlural}.detail.${answers.XtypeCapitalized}Detail',
-            leaf: true,
-            iconCls: 'x-fa fa-plus',
-            routeId: '${answers.xtype}',
-            browseRequirements: [
-              '${answers.xtypePlural}.detail'
-            ]
-          }${importContent}
-        ]
-      }${modulePlacehoder}`);
+          text: i18n.${answers.xtypePlural},
+          view: '${answers.xtypePlural}.${answers.XtypeCapitalizedPlural}',
+          iconCls: 'x-fa fa-star-o',
+          routeId: '${answers.xtypePlural}',
+          browseRequirements: [
+            '${answers.xtypePlural}.read'
+          ],
+          children: [
+            {
+              // text: Ext.String.format(i18n.createEntity, i18n.${answers.xtype}),
+              view: '${answers.xtypePlural}.detail.${answers.XtypeCapitalized}Detail',
+              leaf: true,
+              iconCls: 'x-fa fa-plus',
+              routeId: '${answers.xtype}',
+              browseRequirements: [
+                '${answers.xtypePlural}.detail'
+              ]
+            }${importContent}
+          ]
+        }${modulePlacehoder}`);
 
     if (!navContent.includes(moduleApiPlaceholder)) {
       this.log('Cannot find placehoder for API in Navigation.js');
@@ -435,26 +435,26 @@ module.exports = class extends Generator {
     } else if (!this.options.edp) {
       // Formatting is important to preserve indentation
       navContent = navContent.replace(cdpModulePlacehoder, `, {
-        text: i18n.${answers.xtypePlural},
-        view: '${answers.xtypePlural}.cdp.Cdp${answers.XtypeCapitalizedPlural}',
-        iconCls: 'x-fa fa-star-o',
-        routeId: 'cdp${answers.xtypePlural}',
-        browseRequirements: [
-          'cdp${answers.xtypePlural}.read'
-        ],
-        children: [
-          {
-            text: Ext.String.format(i18n.createEntity, i18n.${answers.xtype}),
-            view: '${answers.xtypePlural}.detail.Cdp${answers.XtypeCapitalized}Detail',
-            leaf: true,
-            iconCls: 'x-fa fa-plus',
-            routeId: 'cdp${answers.xtype}',
-            browseRequirements: [
-              'cdp${answers.xtypePlural}.detail'
-            ]
-          }
-        ]
-      }${cdpModulePlacehoder}`);
+          text: i18n.${answers.xtypePlural},
+          view: '${answers.xtypePlural}.cdp.Cdp${answers.XtypeCapitalizedPlural}',
+          iconCls: 'x-fa fa-star-o',
+          routeId: 'cdp${answers.xtypePlural}',
+          browseRequirements: [
+            'cdp${answers.xtypePlural}.read'
+          ],
+          children: [
+            {
+              text: Ext.String.format(i18n.createEntity, i18n.${answers.xtype}),
+              view: '${answers.xtypePlural}.detail.Cdp${answers.XtypeCapitalized}Detail',
+              leaf: true,
+              iconCls: 'x-fa fa-plus',
+              routeId: 'cdp${answers.xtype}',
+              browseRequirements: [
+                'cdp${answers.xtypePlural}.detail'
+              ]
+            }
+          ]
+        }${cdpModulePlacehoder}`);
     }
 
     this.fs.write(navPath, navContent);
