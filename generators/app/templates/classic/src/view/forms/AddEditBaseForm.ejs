@@ -3,27 +3,29 @@ Ext.define('Thewall.view.<%= xtypePlural %>.forms.AddEdit<%= XtypeCapitalized %>
 
   xtype: 'addedit<%= xtype %>baseform',
 
-  _formFieldsCfg: {
-    <%= idProperty %>: {
-      xtype: 'numberfield',
-      fieldLabel: Ext.String.format(i18n.entityId, i18n.<%= xtype %>),
-      name: '<%= idProperty %>'
-    },
-    title: {
-      xtype: 'textfield',
-      fieldLabel: i18n.title,
-      name: 'title'
-    },
-    alias: {
-      xtype: 'textfield',
-      fieldLabel: i18n.alias,
-      name: 'alias'
-    },
-    is_hidden: {
-      xtype: 'checkbox1and0',
-      name: 'is_hidden',
-      boxLabel: i18n.hidden
-    }
+  getFormFieldsCfg: function() {
+    return {
+      <%= idProperty %>: {
+        xtype: 'numberfield',
+        fieldLabel: Ext.String.format(i18n.entityId, i18n.<%= xtype %>),
+        name: '<%= idProperty %>'
+      },
+      title: {
+        xtype: 'textfield',
+        fieldLabel: i18n.title,
+        name: 'title'
+      },
+      alias: {
+        xtype: 'textfield',
+        fieldLabel: i18n.alias,
+        name: 'alias'
+      },
+      is_hidden: {
+        xtype: 'checkbox1and0',
+        name: 'is_hidden',
+        boxLabel: i18n.hidden
+      }
+    };
   },
   layoutFields: function(cfg) {
     var me = this;
