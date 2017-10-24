@@ -2,11 +2,4 @@ Ext.define('Thewall.view.<%= xtypePlural %>.ViewCtrl<%= XtypeCapitalizedPlural %
   extend: 'Thewall.userux.grid.ViewCtrlGridBase',
 
   alias: 'controller.<%= xtypePlural %>gridbase',
-
-  onToggleEditionsBtnClick: function() {
-    var me = this,
-        editionsColumn = me.lookupReference('editionsColumn');
-
-    editionsColumn.setHidden(editionsColumn.isVisible());
-  }
 });

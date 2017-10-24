@@ -1,6 +1,6 @@
 {
   "name": "generator-thewall",
-  "version": "0.2.5",
+  "version": "0.3.0",
   "description": "Generates basic structure of Thewall module",
   "main": "index.js",
   "scripts": {
