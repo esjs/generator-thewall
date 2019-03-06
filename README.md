@@ -4,7 +4,7 @@
 ```npm i -g yo```
 
 ## Step 2.
-```npm i```
+```npm i -g generator-thewall```
 
 ## Step 3.
 ```cd ${Project_name}/public/thewall/```
